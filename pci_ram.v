@@ -60,10 +60,12 @@ parameter RDS0 = 4'b0001;
 parameter RDS1 = 4'b0010;
 parameter RDS2 = 4'b0011;
 parameter RDS3 = 4'b0100;
+parameter RDS4 = 4'b0101;
+parameter RDS5 = 4'b0110;
 parameter WRS0 = 4'b1001;
 parameter WRS1 = 4'b1010;
 parameter WRS2 = 4'b1011;
-
+parameter WRS3 = 4'b1100;
 
 /***********状态寄存器****************/
 //时序电路
@@ -102,6 +104,9 @@ begin
 								nstate = WRS1;
 		WRS2 ://写最后一个数据状态
 				if(frame)
+								nstate = WRS3;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
+		WRS3 ://写最后一个数据状态
+				if(frame)
 								nstate = IDLE;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
 		RDS0 ://读时序的等待状态
 				if(frame)
@@ -113,12 +118,20 @@ begin
 								nstate = RDS3;
 				else 
 								nstate = RDS2;
-		RDS2 ://持续读状态
+	/*	RDS5 ://adbus置高阻态
+				if(frame)
+								nstate = RDS3;
+				else 
+								nstate = RDS2;
+	*/	RDS2 ://持续读状态
 				if(frame)
 								nstate = RDS3;
 				else 
 								nstate = RDS2;
 		RDS3 ://读最后一个数状态
+				if(frame)
+								nstate = RDS4;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
+		RDS4 ://读最后一个数状态
 				if(frame)
 								nstate = IDLE;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
 		default:
@@ -173,6 +186,13 @@ begin
 					//rden<=1'b0;
 					address<=address+1;
 			end
+			WRS3://写最后一个数状态
+			begin
+					//wrdata<=adbus;
+					//wren<=1'b0;
+					//rden<=1'b0;
+					address<=address+1;
+			end
 			RDS0://读数据等待状态，保存地址
 			begin
 					//adbus<=32'bz;
@@ -187,7 +207,14 @@ begin
 					//wren<=1'b0;
 					//rden<=1'b1;
 			end
-			RDS2://持续读状态
+		/*	RDS5://持续读状态
+			begin
+					//adbus<=rddata;
+					//wren<=1'b0;
+					//rden<=1'b0;
+					address<=address;
+			end
+		*/	RDS2://持续读状态
 			begin
 					//adbus<=rddata;
 					//wren<=1'b0;
@@ -195,6 +222,13 @@ begin
 					address<=address+1;
 			end
 			RDS3://读最后一个数状态
+			begin
+					//adbus<=rddata;
+					//wren<=1'b0;
+					//rden<=1'b0;
+					address<=address;
+			end
+			RDS4://读最后一个数状态
 			begin
 					//adbus<=rddata;
 					//wren<=1'b0;
@@ -223,6 +257,7 @@ begin
 		wrdata<=32'b0;
 		rden<=1'b0;
 		wren<=1'b0;
+		adbus_reg<=32'b0;
 	end
 	else
 	begin
@@ -234,6 +269,7 @@ begin
 					wrdata<=32'b0;
 					rden<=1'b0;
 					wren<=1'b0;
+					adbus_reg<=32'b0;
 			end
 			WAIT:
 			begin
@@ -266,22 +302,38 @@ begin
 					wren<=1'b1;
 					rden<=1'b0;
 			end
+			WRS3:
+			begin
+					adbus_z<=1'b0;
+					wrdata<=adbus;
+					wren<=1'b1;
+					rden<=1'b0;
+			end
 			RDS0:
 			begin
 					adbus_z<=1'b0;
 					//address<=address+1;
 					wren<=1'b0;
-					rden<=1'b0;
+					rden<=1'b1;
+					//adbus_reg
 			end
 			RDS1:
 			begin
-					adbus_z<=1'b1;
-					adbus_reg<=rddata;
+					adbus_z<=1'b0;
+					//adbus_reg<=rddata;
 					//address<=address+1;
 					wren<=1'b0;
 					rden<=1'b1;
 			end
-			RDS2:
+		/*	RDS5:
+			begin
+					adbus_z<=1'b0;
+					//adbus_reg<=rddata;
+					//address<=address+1;
+					wren<=1'b0;
+					rden<=1'b1;
+			end
+		*/	RDS2:
 			begin
 					adbus_z<=1'b1;
 					adbus_reg<=rddata;
@@ -290,6 +342,13 @@ begin
 					rden<=1'b1;
 			end
 			RDS3:
+			begin
+					adbus_z<=1'b1;
+					adbus_reg<=rddata;
+					wren<=1'b0;
+					rden<=1'b1;
+			end
+			RDS4:
 			begin
 					adbus_z<=1'b1;
 					adbus_reg<=rddata;
