@@ -61,7 +61,7 @@ parameter RDS1 = 4'b0010;
 parameter RDS2 = 4'b0011;
 parameter RDS3 = 4'b0100;
 parameter RDS4 = 4'b0101;
-parameter RDS5 = 4'b0110;
+
 parameter WRS0 = 4'b1001;
 parameter WRS1 = 4'b1010;
 parameter WRS2 = 4'b1011;
