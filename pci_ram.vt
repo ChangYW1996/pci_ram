@@ -1,0 +1,140 @@
+// Copyright (C) 1991-2013 Altera Corporation
+// Your use of Altera Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Altera Program License 
+// Subscription Agreement, Altera MegaCore Function License 
+// Agreement, or other applicable license agreement, including, 
+// without limitation, that your use is for the sole purpose of 
+// programming logic devices manufactured by Altera and sold by 
+// Altera or its authorized distributors.  Please refer to the 
+// applicable agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench template that is freely editable to  
+// suit user's needs .Comments are provided in each section to help the user    
+// fill out necessary details.                                                  
+// *****************************************************************************
+// Generated on "10/05/2019 10:24:24"
+                                                                                
+// Verilog Test Bench template for design : pci_ram
+// 
+// Simulation tool : ModelSim-Altera (Verilog)
+// 
+
+`timescale 1 ps/ 1 ps
+module pci_ram_vlg_tst();
+// constants                                           
+// general purpose registers
+reg eachvec;
+// test vector input registers
+reg [31:0] treg_adbus;
+reg [3:0] c_be;
+reg clk;
+reg frame;
+reg rst;
+// wires                                               
+wire [31:0]  adbus;
+wire [31:0]  address;
+wire [31:0]  rddata;
+wire rden;
+wire [31:0]  wrdata;
+wire wren;
+
+// assign statements (if any)                          
+assign adbus = treg_adbus;
+pci_ram i1 (
+// port map - connection between master ports and signals/registers   
+	.adbus(adbus),
+	.address(address),
+	.c_be(c_be),
+	.clk(clk),
+	.frame(frame),
+	.rddata(rddata),
+	.rden(rden),
+	.rst(rst),
+	.wrdata(wrdata),
+	.wren(wren)
+);
+initial                                                
+begin                                                  
+// code that executes only once                        
+// insert code here --> begin                          
+clk=0;
+rst=1; 
+treg_adbus=32'bz;  //写入置高阻态，初始化
+frame=1;
+c_be=4'b0000;
+#2
+rst=0;
+#3//5
+rst=1;
+c_be=4'b0110;//先向RAM写入数据
+frame=0;//置有效
+treg_adbus=32'b00000000_00000000_00000000_00001000;  //写入操作起始地址
+#5//10,读入操作地址，cstate=WAIT,nstate=WRS0,地址准备好
+#10//20，向adbus送入第一个数据
+treg_adbus=32'b00000000_00000000_00000000_00001000;  //写入第一个数据
+#10//30，cstate=WRS0,nstate=WRS1,写入第一个数据
+#10//40，向adbus送入第二个数据
+treg_adbus=32'b00000000_00000000_00000000_00010000;  //写入第二个数据
+#10//50，cstate=WRS1,nstate=WRS1,写入第二个数据
+#10//60，向adbus送入第三个数据
+treg_adbus=32'b00000000_00000000_00000000_00100000;  //写入第三个数据
+#10//70，cstate=WRS1,nstate=WRS1,写入第三个数据
+#10//80，向adbus送入第四个数据
+treg_adbus=32'b00000000_00000000_00000000_01000000;  //写入第四个数据
+#10//90，cstate=WRS1,nstate=WRS1,写入第四个数据
+#10//100，向adbus送入第五个数据
+treg_adbus=32'b00000000_00000000_00000000_10000000;  //写入第五个数据
+#10//110，cstate=WRS1,nstate=WRS1,写入第五个数据
+#10//120，向adbus送入第六个数据
+treg_adbus=32'b00000000_00000000_00000001_00000000;  //写入第六个数据
+#10//130，cstate=WRS1,nstate=WRS1,写入第六个数据
+#10//140，向adbus送入第七个数据
+treg_adbus=32'b00000000_00000000_00000010_00000000;  //写入第七个数据
+#10//150，cstate=WRS1,nstate=WRS1,写入第七个数据
+#10//160，向adbus送入第八个数据
+treg_adbus=32'b00000000_00000000_00000100_00000000;  //写入第八个数据
+#10//170，cstate=WRS1,nstate=WRS1,写入第八个数据
+#10//180，向adbus送入第九个数据
+treg_adbus=32'b00000000_00000000_00001000_00000000;  //写入第九个数据
+#10//190
+frame=1;//frame置无效
+c_be=4'b0000;//c_be置等待
+//cstate =WRS1,nstate =WRS2,写入最后一个数据
+#10//200，向adbus送入第十个数据
+treg_adbus=32'b00000000_00000000_00010000_00000000;  //写入第十个数据
+#60//260，保证写入操作结束，进入IDLE
+treg_adbus=32'bz;//置高阻态
+#100//360，进行读测试，
+frame = 0;
+c_be=4'b0111;
+treg_adbus=32'b00000000_00000000_00000000_00001000;  //读操作起始地址
+#20//380
+treg_adbus=32'bz;//置高阻态，接下来进行读操作测试
+#160//540，读到了第八个数,进行最后一帧读取测试
+frame=1;
+c_be=4'b0000;
+#10//550，应该还是第八个数，此后进入IDLE状态
+#10//
+treg_adbus=32'bz;//置高阻态，接下来进行读操作测试
+
+// --> end                                             
+$display("Running testbench");                       
+end                                                    
+always                                                 
+// optional sensitivity list                           
+// @(event1 or event2 or .... eventn)                  
+begin                                                  
+// code executes for every event on sensitivity list   
+// insert code here --> begin                          
+#10
+clk=~clk;                                                       
+//@eachvec;                                              
+// --> end                                             
+end                                                    
+endmodule
+
