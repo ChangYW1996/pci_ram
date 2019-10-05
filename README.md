@@ -4,6 +4,7 @@ homework，有想法，希望交流的童鞋可以联系我：email：'109272391
 ## 这是在《自动接口及测试技术》课程里老师留下的作业，作业详情如下：
 ### （我只做了简易pci总线与存储器之间的读写通信，pci总线很复杂，这里只用了adbus、frame以及cb/e（工程文件里记为c_be）信号）
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/img.jpg)
+## 时序仿真图展示
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
 ### 写到读的过渡时序：
