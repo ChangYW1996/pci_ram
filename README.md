@@ -48,4 +48,13 @@
 > 总线写数据仿真截图
 
 ![write_ten_addr]( https://github.com/ChangYW1996/pci_ram/blob/master/write_ten_addr.png)
+> 总线读数据（全部读取）仿真截图
+
+![read_start_to_end]( https://github.com/ChangYW1996/pci_ram/blob/master/read_start_to_end.png)
+> 总线读数据（指定地址）仿真截图
+
+![read_point_addr]( https://github.com/ChangYW1996/pci_ram/blob/master/read_point_addr.png)
+> 总线空闲及等待状态仿真截图
+
+![idle_and_wait]( https://github.com/ChangYW1996/pci_ram/blob/master/idle_and_wait.png)
 ---
