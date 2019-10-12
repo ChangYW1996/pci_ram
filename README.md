@@ -37,6 +37,8 @@
 * RDS1读第一个数据状态：FRAME有效，CB/E总线读状态。rden=1,wren=0，起始地址为WAIT状态写入的地址，传送到RAM的address，RAM的q读出地址对应的存储数据并通过ADBUS传出；
 * RDS2持续读数据状态：FRAME有效，CB/E总线读状态。rden=1,wren=0，地址数据自加1，传送到RAM的address，RAM的q读出地址对应的存储数据并通过ADBUS传出；
 * RDS3读最后一个数据状态：FRAME无效，CB/E总线读状态。rden=1,wren=0，地址数据不变，RAM的q读出地址对应的存储数据并通过ADBUS传出。
+> 状态转换图如下：
+![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/flow_chart.png)
 ---
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
