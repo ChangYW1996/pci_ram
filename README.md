@@ -5,7 +5,7 @@
  
  ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/homework.jpg)
  ------
-# 1.问题：
+# 1.问题描述：
 ---
 > 简单的PCI总线设计，实现总线与存储器的数据写与读，并通过软件仿真展示最终的实现结果。
 ---
