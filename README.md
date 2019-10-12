@@ -9,7 +9,7 @@
 ---
 # 2.分析与解决：
 ---
-## 2.1.
+## 2.1.存储器
 > 实现简单的PCI总线时序，因此存储器不是设计的主要部分，在设计中直接选择使用QUARTUS II自带的单口RAM ip核实现。写/读操作在时钟上升沿执行，各参数如下：
 ```
  	input	[7:0]  address;		//RAM深度8bit
@@ -20,6 +20,8 @@
 	output	[31:0]  q; 		// RAM写出数据端
 
 ```
+## 2.2.PCI总线信号选择
+> PCI总线的信号选择ADBUS（地址/数据复用总线，32bit）、FRAME（帧传输信号，低有效）、CB/E（控制读/写/总线命令信号，4bit）。
 ---
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
