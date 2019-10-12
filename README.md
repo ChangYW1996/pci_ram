@@ -25,13 +25,13 @@
 ## 2.3.状态机的设计
 > 状态机可以很直观的描述PCI总线时序数据传输的各个状态，本次设计中简单的将时序分为：IDLE（空闲状态）、WAIT（等待状态）、WRSx（总线写状态）、RDSx（总线读状态）。其中，为了符合PPT读写时序图中分别对于总线写和总线读状态的不同描述，WRx和RSx会取若干个。描述如下：
 
-* IDLE空闲状态:FRAME无效，CB/E总线命令状态。
-> PCI总线此时既不读，也不写，ADBUS置高阻态；
-*
-*
-*
-*
-*
+* IDLE空闲状态:FRAME无效，CB/E总线命令状态。PCI总线此时既不读，也不写，ADBUS置高阻态；
+* WAIT等待状态：FRAME有效，CB/E总线命令状态。PCI总线准备读/写，ADBUS向RAM传送操作数据的起始地址；
+![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write_flow.png)
+* WRS0写入第一个数据状态：FRAME有效，CB/E总线写状态。起始地址为WAIT状态写入的数据，连接到RAM的address，ADBUS向RAM的data传送写入数据，此时rden=0,wren=1;
+* WRS1持续写数据状态：FRAME有效，CB/E总线写状态。在上一个数据写完毕之后地址数据自加1，然后ADBUS向RAM的data传送写入下一个数据，此时rden=0,wren=1;
+* WRS2写最后一个数据状态：FRAME无效，CB/E总线写状态。rden=0,wren=1，在上一个数据写完毕之后地址数据自加1，然后ADBUS向RAM的data传送写入最后一个数据；
+* WRS3写最后一个数据状态：FRAME无效，CB/E总线写状态。rden=0,wren=1，在上一个数据写完毕之后地址数据不变， ADBUS向RAM的data仍传送写入最后一个数据;
 *
 *
 *
