@@ -41,11 +41,7 @@
 
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/flow_chart.jpg)
 ---
-### 写时序：
-![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
-### 写到读的过渡时序：
-![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write_to_read.jpg)
-### 读时序：从开始地址读：
-![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/read_init.jpg)
-### 读时序：从指定地址读：
-![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/read_start_change.jpg)
+## 2.4.编写HDL，仿真运行，结果如下:
+---
+
+---
