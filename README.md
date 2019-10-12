@@ -32,11 +32,11 @@
 * WRS1持续写数据状态：FRAME有效，CB/E总线写状态。在上一个数据写完毕之后地址数据自加1，然后ADBUS向RAM的data传送写入下一个数据，此时rden=0,wren=1;
 * WRS2写最后一个数据状态：FRAME无效，CB/E总线写状态。rden=0,wren=1，在上一个数据写完毕之后地址数据自加1，然后ADBUS向RAM的data传送写入最后一个数据；
 * WRS3写最后一个数据状态：FRAME无效，CB/E总线写状态。rden=0,wren=1，在上一个数据写完毕之后地址数据不变， ADBUS向RAM的data仍传送写入最后一个数据;
-*
-*
-*
-*
-
+![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/read_flow.png)
+* RDS0读数据的等待状态：FRAME有效，CB/E总线读状态。rden=1,wren=0， ADBUS为等待状态，设置为高阻态；
+* RDS1读第一个数据状态：FRAME有效，CB/E总线读状态。rden=1,wren=0，起始地址为WAIT状态写入的地址，传送到RAM的address，RAM的q读出地址对应的存储数据并通过ADBUS传出；
+* RDS2持续读数据状态：FRAME有效，CB/E总线读状态。rden=1,wren=0，地址数据自加1，传送到RAM的address，RAM的q读出地址对应的存储数据并通过ADBUS传出；
+* RDS3读最后一个数据状态：FRAME无效，CB/E总线读状态。rden=1,wren=0，地址数据不变，RAM的q读出地址对应的存储数据并通过ADBUS传出。
 ---
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
