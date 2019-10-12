@@ -60,7 +60,7 @@ parameter RDS0 = 4'b0001;
 parameter RDS1 = 4'b0010;
 parameter RDS2 = 4'b0011;
 parameter RDS3 = 4'b0100;
-parameter RDS4 = 4'b0101;
+//parameter RDS4 = 4'b0101;
 
 parameter WRS0 = 4'b1001;
 parameter WRS1 = 4'b1010;
@@ -130,10 +130,11 @@ begin
 								nstate = RDS2;
 		RDS3 ://读最后一个数状态
 				if(frame)
-								nstate = RDS4;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
-		RDS4 ://读最后一个数状态
+								nstate = IDLE;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
+		/*RDS4 ://读最后一个数状态
 				if(frame)
 								nstate = IDLE;//FRAME 一旦置无效，在一个完整传输阶段不能置有效，因此只有if
+		*/
 		default:
 				if(!frame) 	nstate = WAIT;
 				else		   nstate = IDLE;
@@ -228,13 +229,13 @@ begin
 					//rden<=1'b0;
 					address<=address;
 			end
-			RDS4://读最后一个数状态
+			/*RDS4://读最后一个数状态
 			begin
 					//adbus<=rddata;
 					//wren<=1'b0;
 					//rden<=1'b0;
 					address<=address;
-			end
+			end*/
 			default:
 			begin
 					//adbus<=32'bz;
@@ -348,13 +349,13 @@ begin
 					wren<=1'b0;
 					rden<=1'b1;
 			end
-			RDS4:
+			/*RDS4:
 			begin
 					adbus_z<=1'b1;
 					adbus_reg<=rddata;
 					wren<=1'b0;
 					rden<=1'b1;
-			end
+			end*/
 			default:
 			begin
 					adbus_z<=1'b0;
