@@ -11,6 +11,9 @@
 ---
 ## 2.1.
 > 实现简单的PCI总线时序，因此存储器不是设计的主要部分，在设计中直接选择使用QUARTUS II自带的单口RAM ip核实现。写/读操作在时钟上升沿执行，各参数如下：
+```
+
+```
 ---
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
