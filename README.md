@@ -1,9 +1,9 @@
 # pci_ram
-  homework，有想法，希望交流的童鞋可以联系我：email：'1092723916@qq.com'
-### 这个工程本人只进行过仿真，由于没有硬件设备，所以还没有进行实际的使用测试
-## 这是在《自动接口及测试技术》课程里老师留下的作业，作业详情如下：
-### （我只做了简易pci总线与存储器之间的读写通信，pci总线很复杂，这里只用了adbus、frame以及cb/e（工程文件里记为c_be）信号）
-![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/img.jpg)
+  自动测试及接口技术作业
+## 问题：
+---
+简单的PCI总线设计，实现总线与存储器的数据写与读，并通过软件仿真展示最终的实现结果。
+---
 ## 时序仿真图展示
 ### 写时序：
 ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/write.jpg)
