@@ -3,7 +3,7 @@
  ------
  > 自动测试及接口技术作业
  
- ![write_flow]( https://github.com/ChangYW1996/pci_ram/blob/master/write_flow.png)
+ ![homework]( https://github.com/ChangYW1996/pci_ram/blob/master/homework.jpg)
  ------
 # 1.问题：
 ---
